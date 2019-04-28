@@ -50,7 +50,6 @@ class Story extends React.PureComponent {
             {story.score} {story.score <= 1 ? 'point' : 'points'}
           </span>
           <span> by {story.by} </span>
-          {/* <span>{story.time}</span> */}
           <span>{this.timeSince(story.time)}</span>
         </p>
       </div>

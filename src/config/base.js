@@ -7,6 +7,7 @@ import 'firebase/database';
 const app = firebase.initializeApp({
   databaseURL: 'https://hacker-news.firebaseio.com'
 });
+
 const base = Rebase.createClass(app.database());
 
 export default base;

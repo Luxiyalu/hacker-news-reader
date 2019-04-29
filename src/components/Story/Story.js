@@ -1,5 +1,5 @@
 import React from 'react';
-import base from '../config/base';
+import { base, storage } from '../../services/';
 import './Story.scss';
 
 class Story extends React.PureComponent {
@@ -11,12 +11,20 @@ class Story extends React.PureComponent {
   }
 
   componentDidMount() {
-    base.fetch(`/v0/item/${this.props.id}`, {
-      context: this,
-      then(story) {
-        this.setState({ story });
-      }
-    });
+    const { id } = this.props;
+    const storedStory = storage.getStoryById(id);
+
+    if (storedStory) {
+      this.setState({ story: storedStory });
+    } else {
+      base.fetch(`/v0/item/${id}`, {
+        context: this,
+        then(story) {
+          this.setState({ story });
+          storage.setStory(id, story);
+        }
+      });
+    }
   }
 
   timeSince(timestamp) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Story from '../Story/Story';
-import { base, storage } from '../../services/';
+import { base, storage, debounce } from '../../services/';
 import './App.scss';
 
 class App extends React.Component {
@@ -20,7 +20,9 @@ class App extends React.Component {
         storage.setLatestStories(this.state.stories);
       }
     });
-    window.addEventListener('scroll', this.handleScroll.bind(this));
+
+    window.addEventListener('scroll', debounce(this.handleScroll.bind(this)));
+    this.handleScroll();
   }
 
   componentWillUnmount() {
@@ -31,12 +33,24 @@ class App extends React.Component {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
     if (scrollHeight - scrollTop - clientHeight < 100) {
-      this.setState({ limit: this.state.limit + 20 });
+      const oldLimit = this.state.limit;
+      this.setState({ limit: oldLimit + 20 });
+      this.preload(this.state.stories.slice(oldLimit, oldLimit + 30));
     }
   }
 
+  preload(IDs) {
+    IDs.forEach(id =>
+      base.fetch(`/v0/item/${id}`, {
+        context: this,
+        then(story) {
+          storage.setStory(id, story);
+        }
+      })
+    );
+  }
+
   render() {
-    console.log('rerender:', this.state);
     const { stories, limit } = this.state;
 
     return (

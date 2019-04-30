@@ -13,12 +13,11 @@ context('Latest News List', () => {
 
   it.only('when scrolled to bottom, more stories are loaded', () => {
     cy.get('[data-cy=story-container] a').then(() => {
-      cy.wait(500);
       const initCount = Cypress.$('[data-cy=story-container]').length;
       cy.get('[data-cy=story-container]')
         .last()
         .scrollIntoView();
-      cy.wait(500);
+      cy.wait(1000);
       cy.get('[data-cy=story-container]')
         .its('length')
         .should('be.gt', initCount);

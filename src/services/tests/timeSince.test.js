@@ -1,11 +1,10 @@
 import { timeSince } from '../';
 
 function timestampAgoBySeconds(seconds) {
-  const timeNow = new Date();
-  const timeAgo = new Date(timeNow.getTime() - seconds * 1000);
+  const timeAgo = new Date(new Date().getTime() - seconds * 1000);
   const timestamp = timeAgo.valueOf();
 
-  return timestamp;
+  return Math.floor(timestamp / 1000);
 }
 
 describe('timeSinceService', () => {

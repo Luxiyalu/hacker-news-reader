@@ -1,0 +1,25 @@
+.hn-app {
+  display: flex;
+  justify-content: center;
+
+  .center {
+    max-width: 80%;
+    display: flex;
+    flex-grow: 1;
+    align-content: center;
+    flex-direction: column;
+  }
+
+  .stories-container {
+    background-color: #f6f6ef;
+    padding: 15px 20px;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .hn-app {
+    .center {
+      max-width: 100%;
+    }
+  }
+}

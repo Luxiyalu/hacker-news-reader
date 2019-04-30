@@ -1,5 +1,6 @@
 import React from 'react';
 import Story from '../Story/Story';
+import Header from '../Header/Header';
 import { base, storage, debounce } from '../../services/';
 import './App.scss';
 
@@ -55,15 +56,15 @@ class App extends React.Component {
 
     return (
       <div className="hn-app">
-        <header />
+        <div className="center">
+          <Header />
 
-        <div className="stories-container">
-          {stories.slice(0, limit).map(id => (
-            <Story key={id} id={id} />
-          ))}
+          <div className="stories-container">
+            {stories.slice(0, limit).map(id => (
+              <Story key={id} id={id} />
+            ))}
+          </div>
         </div>
-
-        <footer />
       </div>
     );
   }

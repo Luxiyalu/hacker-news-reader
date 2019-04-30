@@ -39,7 +39,7 @@ class Story extends React.Component {
     if (!Object.keys(story).length) return null;
 
     return (
-      <div className="Story">
+      <div className="story" data-cy="story-container">
         <a href={story.url}>{story.title}</a>
         <p>
           <span>

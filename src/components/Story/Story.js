@@ -46,6 +46,7 @@ class Story extends React.Component {
             {story.score} {story.score <= 1 ? 'point' : 'points'}
           </span>
           <span> by {story.by} </span>
+          <span>{story.time} </span>
           <span>{timeSince(story.time)}</span>
         </p>
       </div>

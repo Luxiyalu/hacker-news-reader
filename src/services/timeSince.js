@@ -1,6 +1,5 @@
 export default function timeSince(timestamp) {
-  const date = new Date(timestamp * 1000);
-  const seconds = Math.floor((new Date() - date) / 1000);
+  const seconds = Math.floor((new Date().valueOf() - timestamp) / 1000);
   let interval = Math.floor(seconds / 31536000);
 
   if (interval > 1) return interval + ' years ago';

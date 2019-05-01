@@ -63,7 +63,8 @@
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.(css|scss)$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest"
     },
     "setupFilesAfterEnv": [
       "./config/jest/localStorageMock.js",

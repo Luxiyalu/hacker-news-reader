@@ -98,13 +98,17 @@ Second, git commits are well divided by their functionality, and messages are ad
 Since 12 hours is running out, I only had time to set them up and didn't finish filling them out:
 
 ##### 1. Component Tests with `Jest` and `react-test-renderer`:
+
 - As much as possible, component methods are written in the form of pure functions.
 - Utility functions are split out into `src/services` for testability.
+- Snapshots are taken.
 
 ##### 2. Unit Tests with `Jest`:
+
 - Since utility functions are pure functions, they're relatively easy to test.
 
 ##### 3. End-to-End Tests with `Cypress`:
+
 - A go-through of the complete user actions.
 
 ### Other Considerations

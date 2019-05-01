@@ -32,13 +32,13 @@ class App extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  setStoriesAsSeen() {
-    const seenStoriesDict = this.state.seenStoriesDict || {};
+  setStoriesAsSeen(seenStoriesDict = this.state.seenStoriesDict || {}) {
     for (const id of this.state.stories) {
       if (seenStoriesDict[id]) break;
       seenStoriesDict[id] = true;
     }
     this.setState({ seenStoriesDict });
+    return seenStoriesDict;
   }
 
   handleScroll() {

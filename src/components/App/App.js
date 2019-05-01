@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       limit: 20,
+      seenStoriesDict: null,
       stories: storage.getLatestStories() || []
     };
   }
@@ -19,6 +20,7 @@ class App extends React.Component {
       context: this,
       then: () => {
         storage.setLatestStories(this.state.stories);
+        this.setStoriesAsSeen();
       }
     });
 
@@ -28,6 +30,15 @@ class App extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  setStoriesAsSeen() {
+    const seenStoriesDict = this.state.seenStoriesDict || {};
+    for (const id of this.state.stories) {
+      if (seenStoriesDict[id]) break;
+      seenStoriesDict[id] = true;
+    }
+    this.setState({ seenStoriesDict });
   }
 
   handleScroll() {
@@ -52,7 +63,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { stories, limit } = this.state;
+    const { stories, limit, seenStoriesDict } = this.state;
 
     return (
       <div className="hn-app">
@@ -60,8 +71,12 @@ class App extends React.Component {
           <Header />
 
           <div className="stories-container">
-            {stories.slice(0, limit).map(id => (
-              <Story key={id} id={id} />
+            {stories.slice(0, limit).map((id, i) => (
+              <Story
+                fresh={seenStoriesDict && !seenStoriesDict[id]}
+                key={id}
+                id={id}
+              />
             ))}
           </div>
         </div>

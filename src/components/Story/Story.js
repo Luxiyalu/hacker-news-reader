@@ -6,7 +6,8 @@ class Story extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      story: {}
+      story: {},
+      fresh: this.props.fresh
     };
   }
 
@@ -24,6 +25,7 @@ class Story extends React.Component {
           if (story && Object.keys(story).length) {
             this.setState({ story });
             storage.setStory(id, story);
+            this.fadeoutHighlight();
           } else {
             setTimeout(this.componentDidMount.bind(this), 500);
           }
@@ -32,14 +34,22 @@ class Story extends React.Component {
     }
   }
 
+  fadeoutHighlight() {
+    setTimeout(() => this.setState({ fresh: false }), 3000);
+  }
+
   render() {
-    const { story } = this.state;
+    const { id, story, fresh } = this.state;
 
     // No need to go through render if data is not fetched
     if (!Object.keys(story).length) return null;
 
     return (
-      <div className="story-container" data-cy="story-container">
+      <div
+        id={id}
+        className={'story-container' + (fresh ? ' fresh' : '')}
+        data-cy="story-container"
+      >
         <a href={story.url}>{story.title}</a>
         <p>
           <span>

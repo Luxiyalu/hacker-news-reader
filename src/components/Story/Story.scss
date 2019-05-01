@@ -1,5 +1,12 @@
 .story-container {
-  padding: 10px 0;
+  padding: 14px 20px;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-property: background;
+
+  &.fresh {
+    background: rgba(255, 102, 0, 0.2);
+  }
 
   a {
     text-decoration: none;

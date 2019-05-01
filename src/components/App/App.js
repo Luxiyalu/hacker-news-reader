@@ -71,7 +71,7 @@ class App extends React.Component {
           <Header />
 
           <div className="stories-container">
-            {stories.slice(0, limit).map((id, i) => (
+            {stories.slice(0, limit).map(id => (
               <Story
                 fresh={seenStoriesDict && !seenStoriesDict[id]}
                 key={id}
